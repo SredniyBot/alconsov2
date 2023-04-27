@@ -24,14 +24,9 @@ public class UIController {
     this.genomeAnaliseService = genomeAnaliseService;
   }
 
-//  @MessageMapping("/start") TODO сделать дополнительный проброс инфы по результатам при запросе
-//  @SendTo("/topic/status")
-//  public Greeting answerToRequest(InputData message) {
-//    return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getFileName()) + "!");
-//  }
 
   @GetMapping("/")
-  public String mainPage(Model model){  //TODO вывод ошибок в клиент
+  public String mainPage(Model model){
     return "index";
   }
 
@@ -53,7 +48,7 @@ public class UIController {
     return "redirect:/results";
   }
 
-  //TODO организовать подтягивание данных при гет запросе на results либо переброс на индекс с ошибкой
+
   @GetMapping("/results")
   public String showResults(Model model, RedirectAttributes redirectAttributes){
     if (!genomeAnaliseService.isAnalysing()){
