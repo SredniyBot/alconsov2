@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -30,16 +29,17 @@ public class ObtainingDataFromFilesService {
                                 FilesResultObserver observer) throws Exception {
         resultInfo.setGenomes_all(countFiles(source));
 
-        ExecutorService executor = Executors.newCachedThreadPool();
-        for(File file: getFiles(source)) {
-            executor.execute(() -> fileService.analiseFileContent(file,resultInfo,useN));
-        }
-        try {
-            executor.shutdown();
-            executor.awaitTermination(10000, TimeUnit.DAYS);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        ExecutorService executor = Executors.newSingleThreadExecutor()/*newCachedThreadPool()*/;//TODO сделать нормальную многопоточность, сейчас с этим беда
+            for (File file : getFiles(source)) {
+                executor.execute(() -> fileService.analiseFileContent(file, resultInfo, useN));
+            }
+            try {
+                executor.shutdown();
+                executor.awaitTermination(10000, TimeUnit.DAYS);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         writeToFile(observer.updateAndGetResult(scatter,useN,resultInfo));
         resultInfo.setGenome_status(ProgramStatus.DONE);
     }

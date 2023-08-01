@@ -5,10 +5,8 @@ import com.pavi.alconsov2.entity.ResultInfo;
 import com.pavi.alconsov2.entity.Sequence;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
+
+import java.util.*;
 
 @Component
 public class SequenceRestoreService implements FilesResultObserver{
@@ -20,7 +18,7 @@ public class SequenceRestoreService implements FilesResultObserver{
     }
     @Value("${definingLength}")
     private Integer definingLength;
-    public String analisePiecesAndGetResult(HashMap<String, Sequence> map,int scatter,boolean useN,ResultInfo resultInfo) {
+    public String analisePiecesAndGetResult(Map<String, Sequence> map, int scatter, boolean useN, ResultInfo resultInfo) {
         resultInfo.increaseUnique_sequences(map.size());
         resultInfo.setGenome_status(ProgramStatus.ALIGNMENT);
         StringBuilder result = new StringBuilder();
@@ -54,7 +52,7 @@ public class SequenceRestoreService implements FilesResultObserver{
         System.out.println(result);
         return result.toString();
     }
-    private ArrayList<LinkedHashSet<Sequence>> getSortedList(HashMap<String, Sequence> map,ResultInfo resultInfo) {
+    private ArrayList<LinkedHashSet<Sequence>> getSortedList(Map<String, Sequence> map,ResultInfo resultInfo) {
         ArrayList<LinkedHashSet<Sequence>> sequenceArray = new ArrayList<>();
         while (!map.isEmpty()) {
             LinkedHashSet<Sequence> sequenceLinkedSet = new LinkedHashSet<>();
@@ -107,7 +105,7 @@ public class SequenceRestoreService implements FilesResultObserver{
         }
         return trueSeq;
     }
-    private Sequence getSeqFromMap(HashMap<String, Sequence> list, String searchStr) {
+    private Sequence getSeqFromMap(Map<String, Sequence> list, String searchStr) {
         return list.values().stream()
                 .filter(sequence -> sequence.getSequence().contains(searchStr)).findFirst().orElse(null);
     }

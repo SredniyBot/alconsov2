@@ -1,31 +1,31 @@
 package com.pavi.alconsov2.repo;
 
-import com.pavi.alconsov2.entity.Sequence;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Set;
 
 @Component
 public class SequenceRepository {
 
-    private final Map<String,Sequence> sequences;
+    private final Map<String,Integer> sequences;
 
     SequenceRepository(){
-        sequences=new ConcurrentHashMap<>(200000);
+        sequences=new HashMap<>(200000);
     }
-    public Sequence findBySequence(String sequence) {
-        if (sequences.containsKey(sequence))return sequences.get(sequence);
-        return null;
-    }
-
-    public void save(Sequence sequence) {
-        sequences.put(sequence.getSequence(),sequence);
+    public synchronized void updateStatistics(String s){
+        sequences.put(s,sequences.getOrDefault(s,0)+1);
     }
 
-    public List<Sequence> getSequences() {
-        return  new ArrayList<>(sequences.values());
+    public Integer bestConservSequence() {
+        return sequences.values().stream().max(Integer::compare).orElse(0);
+    }
+
+    public Map<String, Integer> bestSequences(int minQuantity) {
+        Set<String> set = new HashSet<>(sequences.keySet());
+        for (String s: set)if(sequences.get(s)<minQuantity)sequences.remove(s);
+        return sequences;
     }
 }

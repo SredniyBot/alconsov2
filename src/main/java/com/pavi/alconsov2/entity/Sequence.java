@@ -22,12 +22,14 @@ public class Sequence implements Comparable<Sequence>{
         minQuantity=quantity;
         maxQuantity=quantity;
     }
-
-    public synchronized void increaseQuantity() {
-        quantity++;
+    public Sequence(String sequence,int quantity) {
+        this.sequence = sequence.toLowerCase();
+        length = sequence.length();
+        this.quantity = quantity;
         minQuantity=quantity;
         maxQuantity=quantity;
     }
+
     public void wideLeftSequence(Sequence sequence){
         if(sequence.getMinQuantity()<minQuantity){
             minQuantity=sequence.getMinQuantity();
