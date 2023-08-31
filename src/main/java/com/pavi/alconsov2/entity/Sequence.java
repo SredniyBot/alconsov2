@@ -2,12 +2,18 @@ package com.pavi.alconsov2.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
+@Setter
+@Entity
 public class Sequence implements Comparable<Sequence>{
+    @Id
     private String sequence;
     private int quantity;
     private int length;
@@ -23,11 +29,6 @@ public class Sequence implements Comparable<Sequence>{
         maxQuantity=quantity;
     }
 
-    public synchronized void increaseQuantity() {
-        quantity++;
-        minQuantity=quantity;
-        maxQuantity=quantity;
-    }
     public void wideLeftSequence(Sequence sequence){
         if(sequence.getMinQuantity()<minQuantity){
             minQuantity=sequence.getMinQuantity();

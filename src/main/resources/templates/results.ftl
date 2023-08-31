@@ -22,7 +22,7 @@
                 <p class="w-lg-50">алгоритм поиска консервативных последовательностей в геномах вирусных организмов&nbsp;</p>
             </div>
         </div>
-        <div class="row gx-1 gy-1 row-cols-1 row-cols-md-2 row-cols-xl-3 text-center d-md-flex d-lg-flex justify-content-md-center justify-content-lg-center align-items-lg-center">
+        <div id="info" class="row gx-1 gy-1 row-cols-1 row-cols-md-2 row-cols-xl-3 text-center d-md-flex d-lg-flex justify-content-md-center justify-content-lg-center align-items-lg-center">
             <div class="col d-lg-flex flex-column flex-fill align-items-lg-center" style="padding: 0;">
                 <div class="container" style="margin: 0;margin-top: 15px;margin-bottom: 5px;">
                     <div class="row" style="padding-left: 20px;padding-right: 20px;">

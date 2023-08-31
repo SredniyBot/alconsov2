@@ -44,14 +44,26 @@ function showResult(message) {
     let m=JSON.parse(message);
     $( "#genomes_all" ).html(m.genomes_all);
     $( "#genomes_downloaded" ).html(m.genomes_downloaded);
-    $( "#genomes_downloaded_scale" ).html(((m.genomes_downloaded/m.genomes_all)*100).toFixed(2)+"%");
-    $( "#genomes_downloaded_scale" ).attr("style","width: "+(m.genomes_downloaded/m.genomes_all)*100+"%")
-    $( "#genomes_ignored" ).html(m.genomes_ignored);
-    $( "#genomes_ignored_scale" ).html(((m.genomes_ignored/m.genomes_all)*100).toFixed(2)+"%");
-    $( "#genomes_ignored_scale" ).attr("style","width: "+(m.genomes_ignored/m.genomes_all)*100+"%")
-    $( "#genomes_analysed" ).html(m.genomes_analysed);
-    $( "#genomes_analysed_scale" ).html(((m.genomes_analysed/m.genomes_all)*100).toFixed(2)+"%");
-    $( "#genomes_analysed_scale" ).attr("style","width: "+(m.genomes_analysed/m.genomes_all)*100+"%")
+    if (m.genomes_all==0){
+        $( "#genomes_downloaded_scale" ).html((0).toFixed(2)+"%");
+        $( "#genomes_downloaded_scale" ).attr("style","width: "+0+"%")
+        $( "#genomes_ignored" ).html(m.genomes_ignored);
+        $( "#genomes_ignored_scale" ).html((0).toFixed(2)+"%");
+        $( "#genomes_ignored_scale" ).attr("style","width: "+0+"%")
+        $( "#genomes_analysed" ).html(m.genomes_analysed);
+        $( "#genomes_analysed_scale" ).html((0).toFixed(2)+"%");
+        $( "#genomes_analysed_scale" ).attr("style","width: "+0+"%")
+    }else {
+        $( "#genomes_downloaded_scale" ).html(((m.genomes_downloaded/m.genomes_all)*100).toFixed(2)+"%");
+        $( "#genomes_downloaded_scale" ).attr("style","width: "+(m.genomes_downloaded/m.genomes_all)*100+"%")
+        $( "#genomes_ignored" ).html(m.genomes_ignored);
+        $( "#genomes_ignored_scale" ).html(((m.genomes_ignored/m.genomes_all)*100).toFixed(2)+"%");
+        $( "#genomes_ignored_scale" ).attr("style","width: "+(m.genomes_ignored/m.genomes_all)*100+"%")
+        $( "#genomes_analysed" ).html(m.genomes_analysed);
+        $( "#genomes_analysed_scale" ).html(((m.genomes_analysed/m.genomes_all)*100).toFixed(2)+"%");
+        $( "#genomes_analysed_scale" ).attr("style","width: "+(m.genomes_analysed/m.genomes_all)*100+"%")
+
+    }
     $( "#sequence_restored" ).html(m.sequence_restored);
     $( "#status" ).html(m.genome_status);
 }
@@ -70,16 +82,30 @@ function showStatus(message) {
     let m=(message);
     $( "#genomes_all" ).html(m.genomes_all);
     $( "#genomes_downloaded" ).html(m.genomes_downloaded);
-    $( "#genomes_downloaded_scale" ).html(((m.genomes_downloaded/m.genomes_all)*100).toFixed(2)+"%");
-    $( "#genomes_downloaded_scale" ).attr("style","width: "+(m.genomes_downloaded/m.genomes_all)*100+"%")
-    $( "#genomes_ignored" ).html(m.genomes_ignored);
-    $( "#genomes_ignored_scale" ).html(((m.genomes_ignored/m.genomes_all)*100).toFixed(2)+"%");
-    $( "#genomes_ignored_scale" ).attr("style","width: "+(m.genomes_ignored/m.genomes_all)*100+"%")
-    $( "#genomes_analysed" ).html(m.genomes_analysed);
-    $( "#genomes_analysed_scale" ).html(((m.genomes_analysed/m.unique_sequences)*100).toFixed(2)+"%");
-    if(m.unique_sequences!=0){
-        $( "#genomes_analysed_scale" ).attr("style","width: "+(m.genomes_analysed/m.unique_sequences)*100+"%")
+    if (m.genomes_all==0){
+        $( "#genomes_downloaded_scale" ).html((0).toFixed(2)+"%");
+        $( "#genomes_downloaded_scale" ).attr("style","width: "+0+"%")
+        $( "#genomes_ignored" ).html(m.genomes_ignored);
+        $( "#genomes_ignored_scale" ).html((0).toFixed(2)+"%");
+        $( "#genomes_ignored_scale" ).attr("style","width: "+0+"%")
+        $( "#genomes_analysed" ).html(m.genomes_analysed);
+        $( "#genomes_analysed_scale" ).html((0).toFixed(2)+"%");
+        if(m.unique_sequences!=0){
+            $( "#genomes_analysed_scale" ).attr("style","width: "+0+"%")
+        }
+    }else {
+        $( "#genomes_downloaded_scale" ).html(((m.genomes_downloaded/m.genomes_all)*100).toFixed(2)+"%");
+        $( "#genomes_downloaded_scale" ).attr("style","width: "+(m.genomes_downloaded/m.genomes_all)*100+"%")
+        $( "#genomes_ignored" ).html(m.genomes_ignored);
+        $( "#genomes_ignored_scale" ).html(((m.genomes_ignored/m.genomes_all)*100).toFixed(2)+"%");
+        $( "#genomes_ignored_scale" ).attr("style","width: "+(m.genomes_ignored/m.genomes_all)*100+"%")
+        $( "#genomes_analysed" ).html(m.genomes_analysed);
+        $( "#genomes_analysed_scale" ).html(((m.genomes_analysed/m.unique_sequences)*100).toFixed(2)+"%");
+        if(m.unique_sequences!=0){
+            $( "#genomes_analysed_scale" ).attr("style","width: "+(m.genomes_analysed/m.unique_sequences)*100+"%")
+        }
     }
+
     $( "#sequence_restored" ).html(m.sequence_restored);
     $( "#status" ).html(m.genome_status);
     if(m.genome_status=="DONE"){

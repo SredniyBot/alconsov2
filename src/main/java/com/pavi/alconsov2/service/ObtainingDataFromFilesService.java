@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -28,10 +27,9 @@ public class ObtainingDataFromFilesService {
                                 boolean useN,
                                 int scatter,
                                 FilesResultObserver observer) throws Exception {
-        resultInfo.setGenomes_all(countFiles(source));
-
+        List<File> files = countFilesAndGet(source,resultInfo);
         ExecutorService executor = Executors.newCachedThreadPool();
-        for(File file: getFiles(source)) {
+        for(File file: files) {
             executor.execute(() -> fileService.analiseFileContent(file,resultInfo,useN));
         }
         try {
@@ -44,26 +42,28 @@ public class ObtainingDataFromFilesService {
         resultInfo.setGenome_status(ProgramStatus.DONE);
     }
 
-    private int countFiles(File source) throws Exception {
+    private List<File> countFilesAndGet(File source, ResultInfo resultInfo) throws Exception {
         if(source.isDirectory()){
-            int answer =getFiles(source).size();
-            if(answer==0) throw new Exception("NO_JSON_FILE_IN_DIRECTORY: "+source.getAbsolutePath());
+            List<File> answer =getFiles(source,resultInfo);
+            if(answer.size()==0) throw new Exception("NO_JSON_FILE_IN_DIRECTORY: "+source.getAbsolutePath());
+            resultInfo.setGenomes_all(answer.size());
             return answer;
         }else {
             throw new Exception("CHOSEN_FILE_IS_NOT_DIRECTORY: "+source.getAbsolutePath());
         }
     }
 
-    private List<File> getFiles(File sourceFile){
+    private List<File> getFiles(File sourceFile,ResultInfo resultInfo){
         ArrayList<File> list =new ArrayList<>();
         if(sourceFile==null) return list;
         File[] source=sourceFile.listFiles();
         if(source==null) return list;
         for (File s:source) {
             if (s.isDirectory()){
-                list.addAll(getFiles(s));
+                list.addAll(getFiles(s,resultInfo));
             } else if(getFileExtension(s).equals("json")){
                 list.add(s);
+                resultInfo.setGenomes_all(list.size());
             }
         }
         return list;
