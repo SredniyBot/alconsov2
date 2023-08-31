@@ -1,21 +1,12 @@
 package com.pavi.alconsov2.controller;
 
-import com.pavi.alconsov2.entity.ResultInfo;
 import com.pavi.alconsov2.service.GenomeAnaliseService;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 @Controller
 public class UIController {
@@ -26,15 +17,15 @@ public class UIController {
 
 
   @GetMapping("/")
-  public String mainPage(Model model){
+  public String mainPage(){
     return "index";
   }
 
   @PostMapping("/results")
   public String startProcess(@RequestParam(name = "destination") String destination,
                              @RequestParam(name = "scatter") Integer scatter,
-                             @RequestParam(name = "useN",required = false) Boolean useN,
-                             Model model, RedirectAttributes redirectAttributes){
+                             @RequestParam(name = "useN",required = false) Boolean useN
+          , RedirectAttributes redirectAttributes){
     if (useN==null)useN=false;
     System.out.println();
     if (genomeAnaliseService.isAnalysing()) return "redirect:/results";

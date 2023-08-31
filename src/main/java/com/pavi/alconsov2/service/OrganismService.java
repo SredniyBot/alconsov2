@@ -49,7 +49,7 @@ public class OrganismService {
             throw new DataFormatException("Genome contains 'N' (The genome is not taken into account):\n\t "+ path);
         }
 
-        if(Strings.isBlank(seq)|| seq.equals("")){
+        if(Strings.isBlank(seq)|| seq.isEmpty()){
             throw new DataFormatException("Data format error (The genome is not taken into account):\n\t "+
                     path+ "\n\t\t"+"Fasta is empty");
         }
@@ -60,9 +60,9 @@ public class OrganismService {
         }
 
         organism.setDeletedChars(deletedChars);
-        if (!deletedChars.equals("")){
+        if (!deletedChars.isEmpty()){
             StringBuilder message= new StringBuilder();
-            while (!deletedChars.equals("")){
+            while (!deletedChars.isEmpty()){
                 seq = seq.replaceAll(String.valueOf(deletedChars.charAt(0)),"");
                 message.append(deletedChars.charAt(0));
                 deletedChars=deletedChars.replaceAll(String.valueOf(deletedChars.charAt(0)),"");

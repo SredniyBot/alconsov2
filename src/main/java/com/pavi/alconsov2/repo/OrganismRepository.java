@@ -15,7 +15,7 @@ public class OrganismRepository {
         organisms=new CopyOnWriteArrayList<>();
     }
     public void save(Organism organism) {
-        organisms.add(organism);
+//        organisms.add(organism);
     }
 
     public boolean contains(String dataset) {

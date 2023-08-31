@@ -3,15 +3,10 @@ package com.pavi.alconsov2.service;
 import com.google.gson.JsonSyntaxException;
 import com.pavi.alconsov2.entity.Organism;
 import com.pavi.alconsov2.entity.ResultInfo;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 import java.util.zip.DataFormatException;
 
 @Service

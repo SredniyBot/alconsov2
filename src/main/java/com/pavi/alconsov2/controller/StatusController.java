@@ -9,8 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,7 +28,7 @@ public class StatusController {
         return genomeAnaliseService.getResultInfo();
     }
     @GetMapping("/download")
-    public ResponseEntity<Object> downloadFile(RedirectAttributes redirectAttributes) {
+    public ResponseEntity<Object> downloadFile() {
         if (!genomeAnaliseService.isAnalysing()&&
                 genomeAnaliseService.getResultInfo().getGenome_status()!= ProgramStatus.DONE)return null;
         File file = new File("result.json");

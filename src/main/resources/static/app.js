@@ -109,7 +109,7 @@ function showStatus(message) {
     $( "#sequence_restored" ).html(m.sequence_restored);
     $( "#status" ).html(m.genome_status);
     if(m.genome_status=="DONE"){
-       $( "#button" ).attr("style","visibility: visible")
+        $( "#button" ).attr("style","visibility: visible")
     }
 }
 setInterval(() => getData(), 500);

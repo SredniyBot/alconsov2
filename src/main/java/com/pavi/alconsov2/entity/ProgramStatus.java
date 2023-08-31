@@ -4,5 +4,5 @@ public enum ProgramStatus {
     READING,
     SEPARATION,
     ALIGNMENT,
-    DONE;
+    DONE
 }
